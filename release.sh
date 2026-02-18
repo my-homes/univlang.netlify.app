@@ -13,6 +13,7 @@ echo $name
 
 #cd $cwd/$name
 sed -i -e "s/<h1>.*<\/h1>/<h1>${name} ${version}<\/h1>/g" index.html
+sed -i -e "s/<h1>.*<\/h1>/<h1>${name} ${version}<\/h1>/g" dev.html
 cd $cwd/
 echo ${version}>version.txt
 
