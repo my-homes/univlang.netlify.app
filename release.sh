@@ -11,9 +11,8 @@ echo $current
 name=`echo "$current" | sed -e 's/.*\/\([^\/]*\)$/\1/'`
 echo $name
 
-#cd $cwd/$name
-sed -i -e "s/<h1>.*<\/h1>/<h1>${name} ${version}<\/h1>/g" index.html
-sed -i -e "s/<h1>.*<\/h1>/<h1>${name} ${version}<\/h1>/g" dev.html
+sed -i -e "s/<title>.*<\/title>/<title>${name}.netlify.app<\/title>/g" index.html
+sed -i -e "s/<h1>.*<\/h1>/<h1>${name}.netlify.app ${version}<\/h1>/g" index.html
 cd $cwd/
 echo ${version}>version.txt
 
@@ -25,4 +24,4 @@ git tag -a "$tag" -m"$tag"
 git push origin "$tag"
 git push origin HEAD:main
 git remote -v
-start https://app.netlify.com/projects/univlang/overview
+start https://app.netlify.com/projects/${name}/overview
