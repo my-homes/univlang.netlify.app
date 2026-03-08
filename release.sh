@@ -6,6 +6,8 @@ cwd=`pwd`
 ts=`date "+%Y.%m%d.%H%M.%S"`
 version="${ts}"
 
+killall.exe bluegriffon.exe || true
+
 current=$(cd $(dirname $0);pwd)
 echo $current
 name=`echo "$current" | sed -e 's/.*\/\([^\/]*\)$/\1/'`
