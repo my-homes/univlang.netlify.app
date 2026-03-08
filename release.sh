@@ -19,10 +19,7 @@ cd $cwd/
 echo ${version}>version.txt
 
 cp index.template.html index.html
-./html-filter.exe list.html|tac>> index.html
-
-# start index.html
-# exit 0
+./html-filter.exe list.md|tac>> index.html
 
 tag="v$version"
 cd $cwd

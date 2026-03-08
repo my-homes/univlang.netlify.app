@@ -13,6 +13,6 @@ for ((i = 0; i < 50; ++i)); do
 done
 
 cp index.template.html index.html
-./html-filter.exe list.html|tac>> index.html
+./html-filter.exe list.md|tac>> index.html
 
 firefox index.html
