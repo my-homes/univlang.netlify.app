@@ -1,7 +1,7 @@
-// Project Name: random-m4a
 //+#nuget Global.Sys
 using Global;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -126,6 +126,8 @@ try
         }
     }
     DumpObjectAsJson(history, keyAsSymbol: true);
+    EasyObject rev = history.Reverse().Take(5);
+    Log(rev, "rev");
 }
 catch (Exception e)
 {

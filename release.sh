@@ -21,10 +21,5 @@ tac list.html>>index.html
 
 tag="v$version"
 cd $cwd
-git add .
-git commit -m"$tag"
-git tag -a "$tag" -m"$tag"
-git push origin "$tag"
-git push origin HEAD:main
-git remote -v
+git-put -a "v$version"
 start https://app.netlify.com/projects/${name}/overview

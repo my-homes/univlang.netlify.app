@@ -1,7 +1,7 @@
-// Project Name: random-m4a
 //+#nuget Global.Sys
 using Global;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -15,6 +15,10 @@ Encoding shiftJisEncoding = Encoding.GetEncoding("Shift_JIS");
 try
 {
     SilentFlag = true;
+    string dbFolder = HomeFolder("youtube-db");
+    var propsFile = new FileInfo(HomeFile("youtube-db", "props1.litedb"));
+    var props = new LiteDBProps(propsFile);
+    var history = props.Get("history", NewArray());
     string output = GetProcessStdout(
         Encoding.UTF8,
         "my-ls.exe",
@@ -58,6 +62,8 @@ try
         txt += "\n";
         mediaMonkey += $"#EXTINF:-1,{fileName}\n";
         mediaMonkey += $"https://www.youtube.com/watch?v={id}\n";
+        history.Add(new { id, fileName });
+        props.Put("history", history);
     }
     Log(m3u, "m3u");
     var dt = FromObject(DateTime.Now);
@@ -119,7 +125,9 @@ try
             sw.Write($"<p><a target='_blank' href='https://www.youtube.com/watch_videos?video_ids={String.Join(",", idList)}'><img src='{thumUrl}' /></a><p>\n");
         }
     }
-
+    DumpObjectAsJson(history, keyAsSymbol: true);
+    EasyObject rev = history.Reverse().Take(5);
+    Log(rev, "rev");
 }
 catch (Exception e)
 {
