@@ -19,7 +19,9 @@ cd $cwd/
 echo ${version}>version.txt
 
 cp index.template.html index.html
-./html-filter.exe @@playlist.md|shuffle|head -n 1500|tac>> index.html
+echo "#! /usr/bin/env open-markdown">@@index.mk
+./html-filter.exe @@playlist.md|shuffle>>@@index.md
+cat @@index.md|shuffle>>index.html
 
 tag="v$version"
 cd $cwd
