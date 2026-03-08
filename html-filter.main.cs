@@ -14,8 +14,9 @@ try
         arg = Global.Sys.CygpathWindows(arg);
         string text = File.ReadAllText(arg);
         text = text.Trim() + "\n";
-        allText += Regex.Replace(text, @"<p>\s*</p>", "", RegexOptions.Multiline);
-        //allText += text;
+        text = Regex.Replace(text, @"<p>\s*</p>", "", RegexOptions.Multiline);
+        text = text.Replace("</head><body>", "");
+        allText += text;
     }
     var lines = TextToLines(allText);
     foreach( var line in lines )
