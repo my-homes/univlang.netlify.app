@@ -19,9 +19,9 @@ cd $cwd/
 echo ${version}>version.txt
 
 cp index.template.html index.html
-echo "#! /usr/bin/env open-markdown">@@index.mk
+echo "#! /usr/bin/env open-markdown">@@index.md
 ./html-filter.exe @@playlist.md|shuffle>>@@index.md
-cat @@index.md|shuffle>>index.html
+cat @@index.md>>index.html
 
 tag="v$version"
 cd $cwd
