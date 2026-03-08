@@ -19,6 +19,11 @@ try
     string fileName = AdjustFileName("tmp.https://www.youtube.com/watch?v=pTxCQjZooQ8&list=PLTvSv0jkjbk_EhZwZjDeNJIIGK25yNGt8");
     Log(fileName);
     File.WriteAllText(fileName, "ハロー©");
+    string homeFile = HomeFile("@sub", "nuget.org", "univlang", "tmp.https://www.youtube.com/watch?v=pTxCQjZooQ8&list=PLTvSv0jkjbk_EhZwZjDeNJIIGK25yNGt8");
+    Log(homeFile);
+    homeFile = homeFile.Replace("/", @"\");
+    Log(homeFile);
+    File.WriteAllText(homeFile, "ハロー©2");
 }
 catch (Exception e)
 {
