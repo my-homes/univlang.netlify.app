@@ -115,14 +115,13 @@ try
         var idList = mdockArray.AsList!.Select(x => x["videoId"].Cast<string>()).ToList();
         string firstId = idList[0];
         string url2 = $"https://www.youtube.com/watch_videos?video_ids={String.Join(",", idList)}";
-        sw.Write($"<p><a class='example' target='_blank' href='https://www.youtube.com/watch_videos?video_ids={String.Join(",", idList)}'>★{title} 等</a><p>");
         var eo = findYideoInfo(firstId);
         if (eo != null)
         {
             int lastIndex = eo["detail"]["Thumbnails"].Count - 1;
             string thumUrl = eo["detail"]["Thumbnails"][lastIndex]["Url"].Cast<string>();
             Log(thumUrl, "thumUrl");
-            sw.Write($"<p><a target='_blank' href='https://www.youtube.com/watch_videos?video_ids={String.Join(",", idList)}'><img src='{thumUrl}' /></a><p>\n");
+            sw.Write($"<p class='example'><a class='example' target='_blank' href='{url2}'>★{title} 等</a><br /><a target='_blank' href='{url2}'><img src='{thumUrl}' /></a><p>\n");
         }
     }
     DumpObjectAsJson(history, keyAsSymbol: true);
