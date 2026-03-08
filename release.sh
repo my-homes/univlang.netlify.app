@@ -19,7 +19,7 @@ cd $cwd/
 echo ${version}>version.txt
 
 cp index.template.html index.html
-./html-filter.exe @@playlist.md|shuffle|head -n 100|tac>> index.html
+./html-filter.exe @@playlist.md|shuffle|head -n 500|tac>> index.html
 
 tag="v$version"
 cd $cwd
