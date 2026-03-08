@@ -5,7 +5,9 @@ cd "$(dirname "$0")"
 cwd=$(pwd)
 ts=$(date "+%Y.%m%d.%H%M.%S")
 
-rm -rf random-*.exe randome-*.pdb
+#rm -rf random-*.exe randome-*.pdb
+rm -rf html-filter.???
 wingen.exe
-./.r.random-1080p @merge
-./.r.random-m4a @merge
+#./.r.random-1080p @merge
+#./.r.random-m4a @merge
+./.r.html-filter @merge
