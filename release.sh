@@ -11,10 +11,13 @@ echo $current
 name=`echo "$current" | sed -e 's/.*\/\([^\/]*\)$/\1/'`
 echo $name
 
-sed -i -e "s/<title>.*<\/title>/<title>${name}.netlify.app<\/title>/g" index.html
-sed -i -e "s/<h1>.*<\/h1>/<h1>${name}.netlify.app ${version}<\/h1>/g" index.html
+sed -i -e "s/<title>.*<\/title>/<title>${name}.netlify.app<\/title>/g" index.template.html
+sed -i -e "s/<h1>.*<\/h1>/<h1>${name}.netlify.app ${version}<\/h1>/g" index.template.html
 cd $cwd/
 echo ${version}>version.txt
+
+cp index.template.html index.html
+tac list.html>>index.html
 
 tag="v$version"
 cd $cwd
