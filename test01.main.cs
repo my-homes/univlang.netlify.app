@@ -15,15 +15,13 @@ try
     ShowDetail = true;
     Log("ハロー©");
     Log(new { args });
-    SetCwd(HomeFolder("@sub", "nuget.org", "univlang"));
-    string fileName = AdjustFileName("tmp.https://www.youtube.com/watch?v=pTxCQjZooQ8&list=PLTvSv0jkjbk_EhZwZjDeNJIIGK25yNGt8");
-    Log(fileName);
-    File.WriteAllText(fileName, "ハロー©");
-    string homeFile = HomeFile("@sub", "nuget.org", "univlang", "tmp.https://www.youtube.com/watch?v=pTxCQjZooQ8&list=PLTvSv0jkjbk_EhZwZjDeNJIIGK25yNGt8");
+    //SetCwd(HomeFolder("@sub", "nuget.org", "univlang"));
+    //string fileName = AdjustFileName("tmp.https://www.youtube.com/watch?v=pTxCQjZooQ8&list=PLTvSv0jkjbk_EhZwZjDeNJIIGK25yNGt8");
+    //Log(fileName);
+    //File.WriteAllText(fileName, "ハロー©");
+    string homeFile = HomeFile("@sub", "nuget.org", "univlang", "tmp.tmp.https://www.youtube.com/watch?v=pTxCQjZooQ8&list=PLTvSv0jkjbk_EhZwZjDeNJIIGK25yNGt8");
     Log(homeFile);
-    homeFile = homeFile.Replace("/", @"\");
-    Log(homeFile);
-    File.WriteAllText(homeFile, "ハロー©2");
+    File.WriteAllText(homeFile, "ハロー©3");
 }
 catch (Exception e)
 {
