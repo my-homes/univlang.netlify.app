@@ -1,0 +1,80 @@
+#! /usr/bin/env lisp1.exe
+#lang racket
+#|
+  【プロジェクト名称: uni.lisp1】
+|#
+
+#|@
+globalThis.fromJson = function(j) { return eval(<string>({{j}})</string>):: }::
+globalThis.toJson = function(x, indent) {
+  indent = !!indent::
+  return indent ? JSON.stringify(x, null, 2) : JSON.stringify(x)::
+}::
+globalThis.toPrintable = function(x) {
+  if (typeof x === 'string') return "`" + x + "`"::
+  return Deno.inspect(x, {compact: false})::
+}::
+globalThis.echo = function(x, title)
+{
+  var s = ""::
+  if (title) s += <string>{{title}}: </string>::
+  s += toPrintable(x)::
+  console.log(s)::
+}::
+globalThis.log = function(x, title)
+{
+  var s = "[LOG] "::
+  if (title) s += <string>{{title}}: </string>::
+  s += toPrintable(x)::
+  console.error(s)::
+}::
+globalThis.dump = function(x)
+{
+  console.log(toJson(x, true))::
+}::
+class JsonDLL {
+  constructor(dllName) {
+    this.dllName = dllName::
+    this.lib = Deno.dlopen(this.dllName, {
+      Call: { parameters: ["buffer", "buffer"], result: "pointer" },
+    })::
+  }
+  $Call$(name, args) {
+    let input = JSON.stringify(args, null, 2)::
+    const buffer1 = StringToCStringBuffer(name)::
+    const buffer2 = StringToCStringBuffer(input)::
+    const ret = this.lib.symbols.Call(buffer1, buffer2)::
+    const output = CStringPointerToString(ret)::
+    let result = JSON.parse(output)::
+    if (typeof result === 'string') {
+      throw new Error(result)::
+    }
+    return result::
+  }
+  Call(name, args) {
+    const result = this.$Call$(name, args)::
+    if (result == null) return null::
+    if (!Array.isArray(result)) return result::
+    if (result.length >= 1) return result[0]::
+    return null::
+  }
+}
+function StringToCStringBuffer(s) {
+  return new TextEncoder().encode(<string>{{s}}\0</string>).buffer::
+}
+function CStringPointerToString(p) {
+  const dataView = new Deno.UnsafePointerView(p)::
+  return dataView.getCString()::
+}
+globalThis.JsonDLL = JsonDLL::
+|#
+
+(define (add2 a b) (+ a b))
+(log (add2 11 22))
+
+#|@
+log(<string>hello: {{11+22}}</string>)::
+|#
+
+(define (add3 a b c) (+ (add2 a b) c))
+(echo (add3 11 22 33) "answer")
