@@ -110,11 +110,11 @@ try
     //System.Diagnostics.Process.Start(Sys.HomeFolder("@md"));
     string netlifyDir = HomeFolder("@sub", "nuget.org", "univlang");
     SetCwd (netlifyDir);
-    if (!File.Exists("list.md"))
+    if (!File.Exists("@@playlist.md"))
     {
-        File.WriteAllText("list.md", "#! /usr/bin/env open-markdown\n");
+        File.WriteAllText("@@playlist.md", "#! /usr/bin/env open-markdown\n");
     }
-    using (StreamWriter sw = File.AppendText("list.md"))
+    using (StreamWriter sw = File.AppendText("@@playlist.md"))
     {
         var idList = mdockArray.AsList!.Select(x => x["videoId"].Cast<string>()).ToList();
         string firstId = idList[0];
