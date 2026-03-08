@@ -110,7 +110,11 @@ try
     //System.Diagnostics.Process.Start(Sys.HomeFolder("@md"));
     string netlifyDir = HomeFolder("@sub", "nuget.org", "univlang");
     SetCwd (netlifyDir);
-    using (StreamWriter sw = File.AppendText("list.html"))
+    if (!File.Exists("list.md"))
+    {
+        File.WriteAllText("list.md", "#! /usr/bin/env open-markdown\n");
+    }
+    using (StreamWriter sw = File.AppendText("list.md"))
     {
         var idList = mdockArray.AsList!.Select(x => x["videoId"].Cast<string>()).ToList();
         string firstId = idList[0];
@@ -121,7 +125,7 @@ try
             int lastIndex = eo["detail"]["Thumbnails"].Count - 1;
             string thumUrl = eo["detail"]["Thumbnails"][lastIndex]["Url"].Cast<string>();
             Log(thumUrl, "thumUrl");
-            sw.Write($"<p class='example'><a class='example' target='_blank' href='{url2}'>★{title} 等</a><br /><a target='_blank' href='{url2}'><img src='{thumUrl}' /></a><p>\n");
+            sw.Write($"<p class='example'><a target='_blank' href='{url2}'>★{title} 等</a><br /><a target='_blank' href='{url2}'><img src='{thumUrl}' /></a><p>\n");
         }
     }
     DumpObjectAsJson(history, keyAsSymbol: true);
