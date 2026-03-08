@@ -15,7 +15,7 @@ try
         string text = File.ReadAllText(arg);
         text = text.Trim() + "\n";
         text = Regex.Replace(text, @"<p>\s*</p>", "", RegexOptions.Multiline);
-        text = text.Replace("</head><body>", "");
+        text = text.Replace("</head><body>", "<p>");
         allText += text;
     }
     var lines = TextToLines(allText);
