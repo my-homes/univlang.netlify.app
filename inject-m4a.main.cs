@@ -38,16 +38,17 @@ try
         if (TextEmbedder.HasEmbeddedText(line))
         {
             Log("Embedded text already exists for this line. Skipping embedding.");
+            TextEmbedder.RemoveEmbeddedText(line);
             continue;
         }
-        TextEmbedder.InjectEmbeddedText(line, videoInfo.ToJson(indent: true, keyAsSymbol: true));
+        //TextEmbedder.InjectEmbeddedText(line, videoInfo.ToJson(indent: true, keyAsSymbol: true));
     }
-    foreach (var line in lines)
-    {
-        Log(line);
-        var text = TextEmbedder.ExtractEmbeddedText(line);
-        Log(text);
-    }
+    // foreach (var line in lines)
+    // {
+    //     Log(line);
+    //     var text = TextEmbedder.ExtractEmbeddedText(line);
+    //     Log(text);
+    // }
 }
 catch (Exception e)
 {
