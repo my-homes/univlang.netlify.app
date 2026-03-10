@@ -16,40 +16,37 @@ try
 {
     SilentFlag = true;
     string dbFolder = HomeFolder("youtube-db");
-    var propsFile = new FileInfo(HomeFile("youtube-db", "props1.litedb"));
+    var propsFile = new FileInfo(HomeFile("youtube-db", "m4a-list.litedb"));
     var props = new LiteDBProps(propsFile);
-    var history = props.Get("history", NewArray());
-    string output = GetProcessStdout(
-        Encoding.UTF8,
-        "my-ls.exe",
-        "/p/@youtube-m4a"
-    );
-    var lines = TextToLines(output);
-    var dict = NewObject();
-    var array = NewArray();
-    foreach( var line in lines )
+    //var videoListFile = new FileInfo(HomeFile("youtube-db", "video-list.litedb"));
+    //var videoListProps = new LiteDBProps(videoListFile);
+    //var videoList = videoListProps.Get("m4a-list");
+    //var propsFile = new FileInfo(HomeFile("youtube-db", "props1.litedb"));
+    //var props = new LiteDBProps(propsFile);
+    //var history = props.Get("history", NewArray());
+    var videoList = NewArray();
+    var keys = props.Keys;
+    foreach (var key in keys)
     {
-        var info = MediaInfo.ParseMediaUrl(line);
-        if ( info != null )
-        {
-            string id = info["videoId"].Cast<string>();
-            if (id == null) continue;
-            array.Add(id);
-            dict[id] = info;
-        }
+        videoList.Add(props.Get(key));
     }
+    //Log(videoList);
+    //Environment.Exit(0);
+    var array = videoList;
     array = array.Shuffle().Take(5);
-    var list = array.AsStringList;
+    Log(array);
+    //Exit(0);
+    //var list = array.AsStringList;
     string? title = null;
     string m3u = "";
     string txt = "";
     string mediaMonkey = "#EXTM3U\n#EXTENC: UTF-8\n";
     var mdockArray = NewArray();
-    foreach ( var id in list )
+    //var dict = NewObject();
+    foreach (var info in array.AsList!)
     {
-        var info = dict[id];
-        if (info == null) continue;
         mdockArray.Add(info);
+        string id = info["id"].Cast<string>();
         string fileName = info["name"].Cast<string>();
         if (title == null)
         {
@@ -62,8 +59,8 @@ try
         txt += "\n";
         mediaMonkey += $"#EXTINF:-1,{fileName}\n";
         mediaMonkey += $"https://www.youtube.com/watch?v={id}\n";
-        history.Add(new { id, fileName });
-        props.Put("history", history);
+        //history.Add(new { id, fileName });
+        //props.Put("history", history);
     }
     Log(m3u, "m3u");
     var dt = FromObject(DateTime.Now);
@@ -75,6 +72,7 @@ try
     Log(m3uFileName);
     Sys.SetCwd(Sys.CygpathWindows("/p/@youtube-m4a"));
     File.WriteAllText(m3uFileName, m3u);
+    var list = array.AsList!.Select(x => x["id"].Cast<string>()).ToList();
     string url = $"https://www.youtube.com/watch_videos?video_ids={String.Join(",", list)}";
     Log(url, "url");
 
@@ -128,9 +126,9 @@ try
             sw.Write($"<p class='example'><a target='_blank' href='{url2}'>★{title} 等</a><br /><a target='_blank' href='{url2}'><img src='{thumUrl}' /></a><p>\n");
         }
     }
-    DumpObjectAsJson(history, keyAsSymbol: true);
-    EasyObject rev = history.Reverse().Take(5);
-    Log(rev, "rev");
+    //DumpObjectAsJson(history, keyAsSymbol: true);
+    //EasyObject rev = history.Reverse().Take(5);
+    //Log(rev, "rev");
 }
 catch (Exception e)
 {
