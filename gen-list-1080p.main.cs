@@ -1,4 +1,5 @@
 //+#nuget Global.Sys
+//+#inc my-common.cs
 using Global;
 using System;
 using System.IO;
@@ -12,17 +13,10 @@ Encoding shiftJisEncoding = Encoding.GetEncoding("Shift_JIS");
 try
 {
     SilentFlag = true;
-    string dbFolder = HomeFolder("youtube-db");
-    var propsFile = new FileInfo(HomeFile("youtube-db", "1080p-list.litedb"));
-    var props = new LiteDBProps(propsFile);
+    var props = Local.MyCommon.My_Youtube_Props("1080p-list.litedb");
     props.DeleteAll();
-    string output = GetProcessStdout(
-        Encoding.UTF8,
-        "my-ls.exe",
-        "/p/@youtube-1080p"
-    );
-    var lines = TextToLines(output);
-    foreach( var line in lines )
+    var lines = Local.MyCommon.My_LS("/p/@youtube-1080p");
+    foreach ( var line in lines )
     {
         Log(line);
         var info = MediaInfo.ParseMediaUrl(line);
@@ -30,7 +24,6 @@ try
         {
             string id = info["videoId"].Cast<string>();
             if (id == null) continue;
-            info["site"] = "youtube";
             props.Put(id, info);
         }
     }

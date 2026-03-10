@@ -1,5 +1,5 @@
-// Project Name: test01.main.cs
 //+#nuget Global.Sys
+//+#inc my-common.cs
 using Global;
 using System;
 using System.IO;
@@ -7,21 +7,20 @@ using System.Text;
 using static Global.EasyObject;
 using static Global.Sys;
 
-Global.Sys.SetupConsoleUTF8();
-Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
-Encoding shiftJisEncoding = Encoding.GetEncoding("Shift_JIS");
+SetupConsoleUTF8();
 try
 {
-    ShowDetail = true;
+    ShowDetail = false;
     Log("ハロー©");
     Log(new { args });
-    //SetCwd(HomeFolder("@sub", "nuget.org", "univlang"));
-    //string fileName = AdjustFileName("tmp.https://www.youtube.com/watch?v=pTxCQjZooQ8&list=PLTvSv0jkjbk_EhZwZjDeNJIIGK25yNGt8");
-    //Log(fileName);
-    //File.WriteAllText(fileName, "ハロー©");
-    string homeFile = HomeFile("@sub", "nuget.org", "univlang", "tmp.tmp.https://www.youtube.com/watch?v=pTxCQjZooQ8&list=PLTvSv0jkjbk_EhZwZjDeNJIIGK25yNGt8");
-    Log(homeFile);
-    File.WriteAllText(homeFile, "ハロー©3");
+    var lines = Local.MyCommon.My_LS("/p/####");
+    Log(lines);
+    foreach (var line in lines)
+    {
+        Log(line);
+        var ifno = MediaInfo.ParseMediaUrl(line);
+        Log(ifno);
+    }
 }
 catch (Exception e)
 {

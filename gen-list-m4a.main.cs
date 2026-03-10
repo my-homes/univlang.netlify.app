@@ -1,4 +1,5 @@
 //+#nuget Global.Sys
+//+#inc my-common.cs
 using Global;
 using System;
 using System.IO;
@@ -12,17 +13,10 @@ Encoding shiftJisEncoding = Encoding.GetEncoding("Shift_JIS");
 try
 {
     SilentFlag = true;
-    string dbFolder = HomeFolder("youtube-db");
-    var propsFile = new FileInfo(HomeFile("youtube-db", "m4a-list.litedb"));
-    var props = new LiteDBProps(propsFile);
+    var props = Local.MyCommon.My_Youtube_Props("m4a-list.litedb");
     props.DeleteAll();
-    string output = GetProcessStdout(
-        Encoding.UTF8,
-        "my-ls.exe",
-        "/p/@youtube-m4a"
-    );
-    var lines = TextToLines(output);
-    foreach( var line in lines )
+    var lines = Local.MyCommon.My_LS("/p/@youtube-m4a");
+    foreach ( var line in lines )
     {
         Log(line);
         var info = MediaInfo.ParseMediaUrl(line);

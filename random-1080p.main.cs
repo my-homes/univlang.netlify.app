@@ -1,4 +1,5 @@
 //+#nuget Global.Sys
+//+#inc my-common.cs
 using Global;
 using System;
 using System.Diagnostics;
@@ -14,9 +15,7 @@ Encoding shiftJisEncoding = Encoding.GetEncoding("Shift_JIS");
 try
 {
     SilentFlag = true;
-    string dbFolder = HomeFolder("youtube-db");
-    var propsFile = new FileInfo(HomeFile("youtube-db", "1080p-list.litedb"));
-    var props = new LiteDBProps(propsFile);
+    var props = Local.MyCommon.My_Youtube_Props("1080p-list.litedb");
     var videoList = NewArray();
     var keys = props.Keys;
     foreach (var key in keys)
