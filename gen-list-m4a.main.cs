@@ -22,8 +22,6 @@ try
         "/p/@youtube-m4a"
     );
     var lines = TextToLines(output);
-    //var dict = NewObject();
-    //var array = NewArray();
     foreach( var line in lines )
     {
         Log(line);
@@ -32,15 +30,9 @@ try
         {
             string id = info["videoId"].Cast<string>();
             if (id == null) continue;
-            info["site"] = "youtube";
-            //Log(info);
-            //array.Add(info);
-            //dict[id] = info;
             props.Put(id, info);
         }
     }
-    //Log(array);
-    //props.Put("m4a", array);
 }
 catch (Exception e)
 {

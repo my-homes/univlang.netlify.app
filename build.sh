@@ -11,3 +11,5 @@ wingen.exe
 ./.r.random-1080p @merge
 ./.r.random-m4a @merge
 ./.r.html-filter @merge
+./.r.gen-list-1080p @merge
+./.r.gen-list-m4a @merge
