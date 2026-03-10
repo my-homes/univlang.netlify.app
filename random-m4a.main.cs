@@ -1,7 +1,6 @@
 //+#nuget Global.Sys
 using Global;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -18,49 +17,38 @@ try
     string dbFolder = HomeFolder("youtube-db");
     var propsFile = new FileInfo(HomeFile("youtube-db", "m4a-list.litedb"));
     var props = new LiteDBProps(propsFile);
-    //var videoListFile = new FileInfo(HomeFile("youtube-db", "video-list.litedb"));
-    //var videoListProps = new LiteDBProps(videoListFile);
-    //var videoList = videoListProps.Get("m4a-list");
-    //var propsFile = new FileInfo(HomeFile("youtube-db", "props1.litedb"));
-    //var props = new LiteDBProps(propsFile);
-    //var history = props.Get("history", NewArray());
     var videoList = NewArray();
     var keys = props.Keys;
     foreach (var key in keys)
     {
         videoList.Add(props.Get(key));
     }
-    //Log(videoList);
-    //Environment.Exit(0);
     var array = videoList;
     array = array.Shuffle().Take(5);
     Log(array);
-    //Exit(0);
-    //var list = array.AsStringList;
     string? title = null;
     string m3u = "";
     string txt = "";
     string mediaMonkey = "#EXTM3U\n#EXTENC: UTF-8\n";
     var mdockArray = NewArray();
-    //var dict = NewObject();
     foreach (var info in array.AsList!)
     {
         mdockArray.Add(info);
         string id = info["id"].Cast<string>();
-        string fileName = info["name"].Cast<string>();
+        string name = info["name"].Cast<string>();
+        string fullName = info["fullName"].Cast<string>();
         if (title == null)
         {
-            title = Sys.AdjustFileName(fileName);
-            mediaMonkey += $"#PLAYLIST:{fileName}\n";
+            title = Sys.AdjustFileName(name);
+            Log(title, "title");
+            mediaMonkey += $"#PLAYLIST:{name}\n";
         }
-        m3u += fileName;
+        m3u += fullName;
         m3u += "\n";
         txt += $"https://youtu.be/{id}";
         txt += "\n";
-        mediaMonkey += $"#EXTINF:-1,{fileName}\n";
+        mediaMonkey += $"#EXTINF:-1,{name}\n";
         mediaMonkey += $"https://www.youtube.com/watch?v={id}\n";
-        //history.Add(new { id, fileName });
-        //props.Put("history", history);
     }
     Log(m3u, "m3u");
     var dt = FromObject(DateTime.Now);
@@ -68,14 +56,13 @@ try
     string dtString = dt.Cast<string>();
     dtString = Global.Sys.AdjustFileName(dtString);
     Log(dtString);
-    string m3uFileName = $"!! {today}@{title}.m3u";
+    string m3uFileName = $"!! {today}@{title}.m3u8";
     Log(m3uFileName);
-    Sys.SetCwd(Sys.CygpathWindows("/p/@youtube-m4a"));
+    Sys.SetCwd(Sys.CygpathWindows("/p/@youtube-m4a[fullName]"));
     File.WriteAllText(m3uFileName, m3u);
     var list = array.AsList!.Select(x => x["id"].Cast<string>()).ToList();
     string url = $"https://www.youtube.com/watch_videos?video_ids={String.Join(",", list)}";
     Log(url, "url");
-
     //OpenUrl(url);
     Log(title, "title");
     string txtFileName = $"!! {today}@{title}.txt";
@@ -105,7 +92,6 @@ try
             sw.Write($"[![*]({thumUrl})](https://www.youtube.com/watch_videos?video_ids={String.Join(",", idList)})\n");
         }
     }
-    //System.Diagnostics.Process.Start(Sys.HomeFolder("@md"));
     string netlifyDir = HomeFolder("@sub", "nuget.org", "univlang");
     SetCwd (netlifyDir);
     if (!File.Exists("@@playlist.md"))
@@ -126,9 +112,6 @@ try
             sw.Write($"<p class='example'><a target='_blank' href='{url2}'>★{title} 等</a><br /><a target='_blank' href='{url2}'><img src='{thumUrl}' /></a><p>\n");
         }
     }
-    //DumpObjectAsJson(history, keyAsSymbol: true);
-    //EasyObject rev = history.Reverse().Take(5);
-    //Log(rev, "rev");
 }
 catch (Exception e)
 {

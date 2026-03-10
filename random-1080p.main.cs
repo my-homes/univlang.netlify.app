@@ -1,7 +1,6 @@
 //+#nuget Global.Sys
 using Global;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -36,17 +35,19 @@ try
     {
         mdockArray.Add(info);
         string id = info["id"].Cast<string>();
-        string fileName = info["name"].Cast<string>();
+        string name = info["name"].Cast<string>();
+        string fullName = info["fullName"].Cast<string>();
         if (title == null)
         {
-            title = Sys.AdjustFileName(fileName);
-            mediaMonkey += $"#PLAYLIST:{fileName}\n";
+            title = Sys.AdjustFileName(name);
+            Log(title, "title");
+            mediaMonkey += $"#PLAYLIST:{name}\n";
         }
-        m3u += fileName;
+        m3u += fullName;
         m3u += "\n";
         txt += $"https://youtu.be/{id}";
         txt += "\n";
-        mediaMonkey += $"#EXTINF:-1,{fileName}\n";
+        mediaMonkey += $"#EXTINF:-1,{name}\n";
         mediaMonkey += $"https://www.youtube.com/watch?v={id}\n";
     }
     Log(m3u, "m3u");
@@ -55,9 +56,9 @@ try
     string dtString = dt.Cast<string>();
     dtString = Global.Sys.AdjustFileName(dtString);
     Log(dtString);
-    string m3uFileName = $"!! {today}@{title}.m3u";
+    string m3uFileName = $"!! {today}@{title}.m3u8";
     Log(m3uFileName);
-    Sys.SetCwd(Sys.CygpathWindows("/p/@youtube-1080p"));
+    Sys.SetCwd(Sys.CygpathWindows("/p/@youtube-1080p[fullName]"));
     File.WriteAllText(m3uFileName, m3u);
     var list = array.AsList!.Select(x => x["id"].Cast<string>()).ToList();
     string url = $"https://www.youtube.com/watch_videos?video_ids={String.Join(",", list)}";
