@@ -13,7 +13,7 @@ try
     Log("ハロー©");
     Log(new { args });
     var props = Local.MyCommon.My_Youtube_Props("video-list.litedb");
-    var lines = Local.MyCommon.My_LS("/p/@youtube-m4a");
+    var lines = Local.MyCommon.My_LS("/p/@youtube-1080p");
     foreach (var line in lines)
     {
         Log(line);

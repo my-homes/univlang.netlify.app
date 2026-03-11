@@ -13,3 +13,5 @@ wingen.exe
 ./.r.html-filter @merge
 ./.r.gen-list-1080p @merge
 ./.r.gen-list-m4a @merge
+./.r.inject-1080p @merge
+./.r.inject-m4a @merge
