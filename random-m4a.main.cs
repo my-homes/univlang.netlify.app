@@ -71,26 +71,6 @@ try
     string mmFileName = $"!! {today}@{title}.m3u";
     SetCwd(HomeFolder("@playlist"));
     File.WriteAllText(mmFileName, mediaMonkey);
-    // SetCwd(Sys.HomeFolder("@md"));
-    // if (!File.Exists("@@tmp.md"))
-    // {
-    //     File.WriteAllText("@@tmp.md", $"#! /usr/bin/env open-markdown\n# !!!!{Sys.DateTimeString(DateTime.Now)}\n\n");
-    // }
-    // using (StreamWriter sw = File.AppendText("@@tmp.md"))
-    // {
-    //     var idList = mdockArray.AsList!.Select(x => x["videoId"].Cast<string>()).ToList();
-    //     string firstId = idList[0];
-    //     string url2 = $"https://www.youtube.com/watch_videos?video_ids={String.Join(",", idList)}";
-    //     sw.Write($"## ★[{title} 等](https://www.youtube.com/watch_videos?video_ids={String.Join(",", idList)})\n");
-    //     var eo = findYideoInfo(firstId);
-    //     if (eo != null)
-    //     {
-    //         int lastIndex = eo["detail"]["Thumbnails"].Count - 1;
-    //         string thumUrl = eo["detail"]["Thumbnails"][lastIndex]["Url"].Cast<string>();
-    //         Log(thumUrl, "thumUrl");
-    //         sw.Write($"[![*]({thumUrl})](https://www.youtube.com/watch_videos?video_ids={String.Join(",", idList)})\n");
-    //     }
-    // }
     string netlifyDir = HomeFolder("@sub", "nuget.org", "univlang");
     SetCwd (netlifyDir);
     if (!File.Exists("@@playlist.md"))
