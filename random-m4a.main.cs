@@ -33,7 +33,7 @@ try
     foreach (var info in array.AsList!)
     {
         mdockArray.Add(info);
-        string id = info["id"].Cast<string>();
+        string id = info["videoId"].Cast<string>();
         string name = info["name"].Cast<string>();
         string fullName = info["fullName"].Cast<string>();
         if (title == null)
@@ -59,7 +59,7 @@ try
     Log(m3uFileName);
     Sys.SetCwd(Sys.CygpathWindows("/p/@youtube-m4a[fullName]"));
     File.WriteAllText(m3uFileName, m3u);
-    var list = array.AsList!.Select(x => x["id"].Cast<string>()).ToList();
+    var list = array.AsList!.Select(x => x["videoId"].Cast<string>()).ToList();
     string url = $"https://www.youtube.com/watch_videos?video_ids={String.Join(",", list)}";
     Log(url, "url");
     //OpenUrl(url);
