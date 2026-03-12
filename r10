@@ -9,8 +9,8 @@ killall.exe bluegriffon.exe || true
 
 for ((i = 0; i < 10; ++i)); do
     echo "Counter is: $i"
-    # random-m4a.exe || true
-    random-1080p.exe || true
+    random-m4a.exe || true
+    #random-1080p.exe || true
 done
 
 cp index.template.html index.html
