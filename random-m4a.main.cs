@@ -28,7 +28,8 @@ try
     string? title = null;
     string m3u = "";
     string txt = "";
-    string mediaMonkey = "#EXTM3U\n#EXTENC: UTF-8\n";
+    //string mediaMonkey = "#EXTM3U\n#EXTENC: UTF-8\n";
+    string mediaMonkey = "#EXTM3U\n";
     var mdockArray = NewArray();
     foreach (var info in array.AsList!)
     {
@@ -40,7 +41,7 @@ try
         {
             title = Sys.AdjustFileName(name);
             Log(title, "title");
-            mediaMonkey += $"#PLAYLIST:{name}\n";
+            //mediaMonkey += $"#PLAYLIST:{name}\n";
         }
         m3u += fullName;
         m3u += "\n";
