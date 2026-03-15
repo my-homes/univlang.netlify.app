@@ -18,6 +18,7 @@ try
     var props = Local.MyCommon.My_Youtube_Props("m4a-list.litedb");
     var videoList = NewArray();
     var keys = props.Keys;
+    Log(keys, "keys");
     foreach (var key in keys)
     {
         videoList.Add(props.Get(key));
