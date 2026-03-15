@@ -26,4 +26,5 @@ cat @@index.md>>index.html
 tag="v$version"
 cd $cwd
 git-put -a "v$version"
-firefox -new-window https://app.netlify.com/projects/${name}/overview
+# firefox -new-window https://app.netlify.com/projects/${name}/overview
+firefox https://app.netlify.com/projects/${name}/overview
