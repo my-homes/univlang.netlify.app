@@ -12,10 +12,11 @@ Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
 Encoding shiftJisEncoding = Encoding.GetEncoding("Shift_JIS");
 try
 {
-    SilentFlag = true;
+    //SilentFlag = true;
     var props = Local.MyCommon.My_Youtube_Props("m4a-list.litedb");
     props.DeleteAll();
-    var lines = Local.MyCommon.My_LS("/p/@youtube-m4a");
+    //var lines = Local.MyCommon.My_LS("/p/@youtube-m4a");
+    var lines = Local.MyCommon.My_LS_Latest("/p/@youtube-m4a", 100);
     foreach ( var line in lines )
     {
         Log(line);
