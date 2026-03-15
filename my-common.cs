@@ -18,6 +18,16 @@ namespace Local
             );
             return TextToLines(ls);
         }
+        public static List<string> My_LS_Latest(string dir, int limit)
+        {
+            string ls = GetProcessStdout(
+                Encoding.UTF8,
+                "bash.exe",
+                "-c",
+                $"my-dir-latest '{dir}' | head -n {limit}"
+            );
+            return TextToLines(ls);
+        }
         public static LiteDBProps My_Youtube_Props(string dbName)
         {
             var propsFile = new FileInfo(HomeFile("youtube-db", dbName));
