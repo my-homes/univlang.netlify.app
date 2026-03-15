@@ -8,10 +8,10 @@ ts=$(date "+%Y.%m%d.%H%M.%S")
 #rm -rf random-*.exe randome-*.pdb
 rm -rf *.exe *.pdb
 wingen.exe
-./.r.random-1080p @merge
-./.r.random-m4a @merge
-./.r.html-filter @merge
-./.r.gen-list-1080p @merge
-./.r.gen-list-m4a @merge
-./.r.inject-1080p @merge
-./.r.inject-m4a @merge
+./random-1080p.main.sh @merge
+./random-m4a.main.sh @merge
+./html-filter.main.sh @merge
+./gen-list-1080p.main.sh @merge
+./gen-list-m4a.main.sh @merge
+./inject-1080p.main.sh @merge
+./inject-m4a.main.sh @merge
