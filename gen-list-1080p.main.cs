@@ -15,8 +15,7 @@ try
     //SilentFlag = true;
     var props = Local.MyCommon.My_Youtube_Props("1080p-list.litedb");
     props.DeleteAll();
-    //var lines = Local.MyCommon.My_LS("/p/@youtube-1080p");
-    var lines = Local.MyCommon.My_LS_Latest("/p/@youtube-1080p", 100);
+    var lines = Local.MyCommon.My_LS_Latest("/g/マイドライブ/@drive-1080p", 100);
     foreach ( var line in lines )
     {
         Log(line);
