@@ -6,6 +6,6 @@ cd "$(dirname "$0")"
 cwd=$(pwd)
 ts=$(date "+%Y.%m%d.%H%M.%S")
 
-echo "#! /usr/bin/env open-markdown">tmp.@@playlist.md
-tail -n 10 @@playlist.md>>tmp.@@playlist.md
-mv tmp.@@playlist.md @@playlist.md
+echo "#! /usr/bin/env open-markdown">tmp.++playlist.md
+tail -n 10 ++playlist.md>>tmp.++playlist.md
+mv tmp.++playlist.md ++playlist.md

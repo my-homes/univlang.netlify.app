@@ -14,7 +14,7 @@ for ((i = 0; i < 50; ++i)); do
 done
 
 cp index.template.html index.html
-./html-filter.exe @@playlist.md|tac>> index.html
+./html-filter.exe ++playlist.md|tac>> index.html
 
 #firefox index.html
 ./release.sh
