@@ -73,7 +73,7 @@ try
     string mmFileName = $"!! {today}@{title}.m3u";
     SetCwd(HomeFolder("@playlist"));
     File.WriteAllText(mmFileName, mediaMonkey);
-    string netlifyDir = HomeFolder("sub", "nuget.org", "univlang");
+    string netlifyDir = HomeFolder("+sub", "nuget.org", "univlang");
     SetCwd (netlifyDir);
     if (!File.Exists("++playlist.md"))
     {
