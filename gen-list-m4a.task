@@ -1,21 +1,23 @@
-#! /usr/bin/env bash
+#! /usr/bin/env bash.exe
 # -*- mode: sh -*-
-chcp.com 65001 > /dev/null 2>&1
 script_dir="$(dirname "$0")"
 script_dir="$(realpath $script_dir)"
 str="$1"
 if [[ "${str:0:1}" == "@" ]]; then
   if [[ "$str" == "@run" ]]; then
     shift
+    bash.exe "$script_dir/.r.gen-list-m4a.sh" "$@"
   elif [[ "$str" == "@exe" ]]; then
     if [ ! -f "$script_dir/gen-list-m4a.exe" ]; then
-      bash "$script_dir/.r.gen-list-m4a.sh" "@merge" -f 1>&2
+      wingen.exe "$script_dir/gen-list-m4a.main.cs"
+      bash.exe "$script_dir/.r.gen-list-m4a.sh" "@merge" -f 1>&2
     fi
     shift
     $script_dir/gen-list-m4a.exe "$@"
   elif [[ "$str" == "@bin" ]]; then
     if [ ! -f "$script_dir/gen-list-m4a.exe" ]; then
-      bash "$script_dir/.r.gen-list-m4a.sh" "@pack" -f 1>&2
+      wingen.exe "$script_dir/gen-list-m4a.main.cs"
+      bash.exe "$script_dir/.r.gen-list-m4a.sh" "@pack" -f 1>&2
     fi
     shift
     $script_dir/gen-list-m4a.exe "$@"

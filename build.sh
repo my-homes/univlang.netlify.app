@@ -7,10 +7,10 @@ ts=$(date "+%Y.%m%d.%H%M.%S")
 
 #rm -rf *.exe *.pdb
 wingen.exe *.main.cs
-./random-1080p.do @merge
-./random-m4a.do @merge
-./html-filter.do @merge
-./gen-list-1080p.do @merge
-./gen-list-m4a.do @merge
-./inject-1080p.do @merge
-./inject-m4a.do @merge
+./random-1080p.task @merge -f
+./random-m4a.task @merge -f
+./html-filter.task @merge -f
+./gen-list-1080p.task @merge -f
+./gen-list-m4a.task @merge -f
+./inject-1080p.task @merge -f
+./inject-m4a.task @merge -f
