@@ -27,4 +27,5 @@ tag="v$version"
 cd $cwd
 git-put -a "v$version"
 # firefox -new-window https://app.netlify.com/projects/${name}/overview
-firefox https://app.netlify.com/projects/${name}/overview
+#firefox https://app.netlify.com/projects/${name}/overview
+opera https://app.netlify.com/projects/${name}/overview
